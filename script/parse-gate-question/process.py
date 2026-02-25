@@ -144,17 +144,51 @@ def parse_questions(text, answer_dict):
 
 
 def extractProcess(i):
-    env = i['env']
+    # env = i['env']
     
-    output_path = env.get('MLC_GATE_OUTPUT_JSON_PATH')
+    # output_path = env.get('MLC_GATE_OUTPUT_JSON_PATH')
 
-    if (output_path and os.path.exists(output_path)) and not env.get('MLC_SKIP_CACHE'):
+    # if (output_path and os.path.exists(output_path)) and not env.get('MLC_SKIP_CACHE'):
+    #     print(f"++++++++++++++++++++++++++ Using cached dataset JSON at {output_path} ++++++++++++++++++++++++++++++++++++")
+    #     with open(output_path, "r", encoding="utf-8") as f:
+    #         i['state']['questions'] = json.load(f)
+    #     return {'return': 0}
+
+    # print("Skipping cache and processing PDFs to extract questions and answers.")
+    # question_pdf = env.get('MLC_GATE_QUESTION_PDF_PATH')
+    # answer_pdf = env.get('MLC_GATE_ANSWER_PDF_PATH')
+    env = i['env']
+    state = i['state']
+
+    exam_name = env.get('EXAM_NAME')
+    if not exam_name:
+        raise ValueError("EXAM_NAME not set in environment, please set it using --env.EXAM_NAME=<your_exam_name>")
+    
+    output_dir = os.path.expanduser(
+        env.get('MLC_GATE_OUTPUT_DIR', '~/MLC/repos/local/cache/gate-exam-data')
+    )
+
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Construct {exam_name}.json
+    output_path = os.path.join(output_dir, f"{exam_name}.json")
+
+    skip_cache = env.get('MLC_SKIP_CACHE')
+
+    # Use cache if file exists and skip flag NOT set
+    if os.path.exists(output_path) and not skip_cache:
         print(f"++++++++++++++++++++++++++ Using cached dataset JSON at {output_path} ++++++++++++++++++++++++++++++++++++")
         with open(output_path, "r", encoding="utf-8") as f:
-            i['state']['questions'] = json.load(f)
+            state['questions'] = json.load(f)
         return {'return': 0}
 
-    print("Skipping cache and processing PDFs to extract questions and answers.")
+    # Otherwise process PDFs
+    if (skip_cache):
+        print("Skipping cache. Processing PDFs to extract questions and answers.")
+
+    if(not os.path.exists(output_path)):
+        print(f"No cached JSON found at {output_path}. Processing PDFs to extract questions and answers.")
+
     question_pdf = env.get('MLC_GATE_QUESTION_PDF_PATH')
     answer_pdf = env.get('MLC_GATE_ANSWER_PDF_PATH')
 
@@ -217,17 +251,20 @@ def outputProcess(i):
     state = i['state']
     
     questions = state['questions']
-    output_path = os.path.expanduser(env.get('MLC_GATE_OUTPUT_JSON_PATH', '~/MLC/repos/local/cache/gate-exam-data/output.json'))
+    exam_name = env.get('EXAM_NAME', 'exam')
+    base_dir = os.path.expanduser(env.get('MLC_GATE_OUTPUT_JSON_PATH', '~/MLC/repos/local/cache/gate-exam-data/'))
     
     # Ensure output directory exists
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    os.makedirs(os.path.dirname(base_dir), exist_ok=True)
     
     # Save to JSON
+    filename = f"{exam_name}.json"
+    output_path = os.path.join(base_dir, filename)
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(questions, f, indent=2, ensure_ascii=False)
     
     print("*"*100)
-    print(f"Generated {output_path} with {len(questions)} questions.")
+    print(f"Using {output_path} with {len(questions)} questions.")
     print("*"*100)
     return {'return': 0}
 

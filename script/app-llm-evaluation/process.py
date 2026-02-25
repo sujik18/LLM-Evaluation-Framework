@@ -1,3 +1,4 @@
+from datetime import datetime
 import os
 import json
 import time
@@ -8,11 +9,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def get_model_info(model_type):
-    # """Get model name for display purposes"""
     if model_type == "gemini":
         return os.environ.get('MLC_GEMINI_MODEL', 'models/gemini-2.5-flash')
     elif model_type == "openai":
-        return os.environ.get('MLC_OPENAI_MODEL', 'gpt-4o')
+        return os.environ.get('MLC_OPENAI_MODEL', 'gpt-4o-mini')
     elif model_type == "groq":
         return os.environ.get('MLC_GROQ_MODEL', 'llama-3.3-70b-versatile')
     else:
@@ -117,7 +117,7 @@ def ask_model(question, options_dict, model_type, model_instance, q_type):
             messages=[
                 {"role": "user", "content": prompt}
             ],
-            max_tokens=50,
+            max_completion_tokens=50,
             temperature=0
         )
         answer = response.choices[0].message.content.strip().upper()
@@ -150,10 +150,10 @@ def get_rate_limits(model_type):
         if(os.environ.get('MLC_GEMINI_MODEL') == 'models/gemini-2.5-pro'):
             return {"batch_size":3, "batch_sleep": 60}
         else:
-            return {"batch_size": 6, "batch_sleep": 30}
+            return {"batch_size": 10, "batch_sleep": 60}
         
     elif model_type == "openai":
-        return {"batch_size": 10, "batch_sleep": 60}
+        return {"batch_size": 65, "batch_sleep": 0}
     
     else:
         return {"batch_size": 35, "batch_sleep": 60}
@@ -175,18 +175,22 @@ def modelProcess(i):
     process_start = time.time()
     
     # Determine model type from environment variable
-    model_type = env.get('MLC_MODEL_TYPE', 'gemini').lower()
+    model_type = env.get('MLC_MODEL_TYPE', 'groq').lower()
     
     # Initialize the appropriate model
     model_instance = initialize_model(model_type)
     model_name = get_model_info(model_type)
     rate_limits = get_rate_limits(model_type)
     
-    print("********************************************************************************************************************************")
+    print("=" * 100)
     print(f"Model type: {model_type}")
     print(f"Model name: {model_name}")
-    print(f"Question url: {env.get('MLC_GATE_QUESTION_PDF_URL', 'https://github.com/user-attachments/files/20423322/CS25set2-questionPaper.pdf')}")
-
+    if(env.get('MLC_GATE_QUESTION_PDF_URL')):    
+        print(f"Question url: {env.get('MLC_GATE_QUESTION_PDF_URL')}")
+    else:
+        # print(f"Question url: Not provided, using default dataset")
+        print(f"Paper path: {env.get('MLC_GATE_QUESTION_PDF_PATH', 'Not provided, using default dataset')}")
+    print(f"Exam Name: {env.get('EXAM_NAME', 'Not provided')}")
     # Load questions
     questions_file = os.path.expanduser(env.get('MLC_GATE_OUTPUT_JSON_PATH', '~/MLC/repos/local/cache/gate-exam-data/output.json'))
     with open(os.path.expanduser(questions_file), 'r') as f:
@@ -194,7 +198,7 @@ def modelProcess(i):
 
     results = []
     cnt = 0
-    print("------------------------------------------------------------------------------------------------------------------------------------")
+    print("-" * 100)
     
     for q in questions:
         print(f"Processing Q{q['question_number']}..")
@@ -266,7 +270,7 @@ def modelProcess(i):
             "marks": marks,
         })
         
-        print("------------------------------------------------------------------------------------------------------------------------------------")
+        print("-" * 100)
         cnt += 1
 
         #for gemini 2.5 pro test
@@ -285,7 +289,7 @@ def modelProcess(i):
             sleep_end = time.time()
             total_sleep_time += (sleep_end - sleep_start)
             print("Resuming now!")
-            print("********************************************************************************************************************************")
+            print("=" * 100)
 
     i['state']['output'] = results
     i['state']['model_info'] = {'type': model_type, 'name': model_name}
@@ -293,22 +297,22 @@ def modelProcess(i):
     process_end = time.time()
     total_time = process_end - process_start
     effective_time = total_time - total_sleep_time
-    filename = env.get('MLC_GATE_QUESTION_PDF_URL', 'https://github.com/user-attachments/files/20423322/CS25set2-questionPaper.pdf').split("/")[-1]
+    exam_name = env.get('EXAM_NAME', 'unknown_exam')
 
     # Results summary
     print(f"Result for: {model_name}")
-    print(f"Question Paper Filename: {filename}")
-    print("*******************************************************")
-    print(f"Marks Obtained by {model_name} is {marksObtained:.2f} out of total {totalMarks} marks")
+    print(f"Question Paper Filename: {exam_name}")
+    print("=" * 100)
+    print(f"MARKS Obtained by {model_name} is {marksObtained:.2f} out of Total {totalMarks} Marks")
     print(f"# MCQ Correct: {mcqCorrect}, Wrong: {mcqWrong}")
     print(f"# MSQ Correct: {msqCorrect}, Wrong: {msqWrong}")
     print(f"# NAT Correct: {natCorrect}, Wrong: {natWrong}")
     print(f"Total Questions: {len(questions)}")
     print(f"Negative Marks: {negativeMarks:.2f}")
-    print(f"Total Marks Obtained: {marksObtained:.2f}")
-    print(f"Total Marks: {totalMarks:.2f}")
+    print(f"FINAL-MARKS Obtained: {marksObtained:.2f}")
+    print(f"MAX-MARKS: {totalMarks:.2f}")
     print(f"Total Time Taken: {total_time:.2f} seconds (Effective Time: {effective_time:.2f} seconds, Sleep Time: {total_sleep_time:.2f} seconds)")
-    print("*****************************************************************************************************************************************")
+    print("=" * 100)
     return {'return': 0}
 
 
@@ -316,25 +320,42 @@ def resultProcess(i):
     state = i['state']
     results = state['output']
     model_info = state.get('model_info', {'type': 'unknown', 'name': 'unknown'})
+    model_name = model_info.get('name', 'unknown')
+    model_name = model_name.replace("/", "_").replace(" ", "_")  #to handle / in the model name
 
     correct = sum(1 for r in results if r['is_correct'])
     wrong = len(results) - correct
     accuracy = 100 * correct / len(results) if results else 0
 
     # Save results in a JSON file
-    results_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), "results")
-    os.makedirs(results_dir, exist_ok=True)
-    filename = os.environ.get('MLC_GATE_QUESTION_PDF_URL', 'https://github.com/user-attachments/files/20423322/CS25set2-questionPaper.pdf').split("/")[-1]
+    exam_name = os.environ.get("EXAM_NAME", "unknown_exam")
+    model_name = model_name.replace("/", "-")  # clean model IDs
+    exam_name = exam_name.replace("/", "-")
 
-    output_file = os.path.join(results_dir, f"{model_info['name']}_results.json")
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+    final_filename = (
+        f"{model_name}"
+        f"--{exam_name}"
+        f"--{timestamp}.json"
+    )
+    
+    results_dir = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        "results"
+    )
+    os.makedirs(results_dir, exist_ok=True)
+
+    output_file = os.path.join(results_dir, final_filename)
+    os.makedirs(results_dir, exist_ok=True)
 
     with open(output_file, "w") as f:
         json.dump({
             "model_info": model_info,
             "results": results,
             "summary": {
-                "model-name": model_info['name'],
-                "question-paper-filename": filename,
+                "model-name": model_name,
+                "gate-paper": exam_name,
                 "correct": correct,
                 "wrong": wrong,
                 "total": len(results),
@@ -344,9 +365,9 @@ def resultProcess(i):
         }, f, indent=2)
 
     print(f"Results saved to: {output_file}")
-    print("*********************************************************************************************************************************")
+    print("=" * 100)
     print("Summary of results:")
-    print("*********************************************************************************************************************************")
+    print("=" * 100)
     print(f"Correct: {correct}, Wrong: {wrong}, Total: {len(results)}")
     print("---------------------")
     print(f"| Accuracy: {accuracy:.2f}%  |")
