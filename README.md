@@ -178,7 +178,135 @@ Output is saved at:
 }
 ```
 
-## Results
+# Results
+## 2026
+1. GPT 5.2 on GATE-CS 2026 Set 1 paper
+    ```shell
+    ====================================================================================================
+    Result for: gpt-5.2
+    Question Paper Filename: GATE_CS2026_SET_1
+    ====================================================================================================
+    MARKS Obtained by gpt-5.2 is 52.33 out of Total 100 Marks
+    # MCQ Correct: 19, Wrong: 9
+    # MSQ Correct: 16, Wrong: 8
+    # NAT Correct: 4, Wrong: 9
+    Total Questions: 65
+    Negative Marks: 4.67
+    FINAL-MARKS Obtained: 52.33
+    MAX-MARKS: 100.00
+    Total Time Taken: 73.26 seconds (Effective Time: 73.26 seconds, Sleep Time: 0.00 seconds)
+    ====================================================================================================
+    Results saved to: /home/sujith/MLC/repos/sujik18@LLM-Evaluation-Framework/script/app-llm-evaluation/results/gpt-5.2--GATE_CS2026_SET_1--20260225_224429.json
+    ====================================================================================================
+    Summary of results:
+    ====================================================================================================
+    Correct: 39, Wrong: 26, Total: 65
+    ---------------------
+    | Accuracy: 60.00%  |
+    ---------------------
+    ```
+2. GPT 5.2 on GATE-CS 2026 Set 2 paper
+    ```shell
+    ====================================================================================================
+    Result for: gpt-5.2
+    Question Paper Filename: GATE_CS2026_SET_2
+    ====================================================================================================
+    MARKS Obtained by gpt-5.2 is 31.32 out of Total 100 Marks
+    # MCQ Correct: 19, Wrong: 16
+    # MSQ Correct: 4, Wrong: 7
+    # NAT Correct: 6, Wrong: 13
+    Total Questions: 65
+    Negative Marks: 8.68
+    FINAL-MARKS Obtained: 31.32
+    MAX-MARKS: 100.00
+    Total Time Taken: 75.98 seconds (Effective Time: 75.98 seconds, Sleep Time: 0.00 seconds)
+    ====================================================================================================
+    Results saved to: /home/sujith/MLC/repos/sujik18@LLM-Evaluation-Framework/script/app-llm-evaluation/results/gpt-5.2--GATE_CS2026_SET_2--20260225_224753.json
+    ====================================================================================================
+    Summary of results:
+    ====================================================================================================
+    Correct: 29, Wrong: 36, Total: 65
+    ---------------------
+    | Accuracy: 44.62%  |
+    ---------------------
+    ```
+3. llama-3.3-70b-versatile on GATE-CS 2026 Set 1 paper
+    ```shell
+    ----------------------------------------------------------------------------------------------------
+    Result for: llama-3.3-70b-versatile
+    Question Paper Filename: GATE_CS2026_Set_1
+    ====================================================================================================
+    MARKS Obtained by llama-3.3-70b-versatile is 30.32 out of Total 100 Marks
+    # MCQ Correct: 16, Wrong: 12
+    # MSQ Correct: 7, Wrong: 17
+    # NAT Correct: 3, Wrong: 10
+    Total Questions: 65
+    Negative Marks: 6.68
+    FINAL-MARKS Obtained: 30.32
+    MAX-MARKS: 100.00
+    Total Time Taken: 114.48 seconds (Effective Time: 54.46 seconds, Sleep Time: 60.02 seconds)
+    ====================================================================================================
+    Results saved to: /home/sujith/MLC/repos/sujik18@LLM-Evaluation-Framework/script/app-llm-evaluation/results/llama-3.3-70b-versatile--GATE_CS2026_Set_1--20260225_225342.json
+    ====================================================================================================
+    Summary of results:
+    ====================================================================================================
+    Correct: 26, Wrong: 39, Total: 65
+    ---------------------
+    | Accuracy: 40.00%  |
+    ---------------------
+    ```
+4. llama-3.3-70b-versatile on GATE-CS 2026 Set 2 paper
+    ```shell
+    ------------------------------------------------------------------------------------------------------------------------------------
+    Result for: llama-3.3-70b-versatile
+    Question Paper Filename: CS25set2-questionPaper.pdf
+    *******************************************************
+    Marks Obtained by llama-3.3-70b-versatile is 29.31 out of total 97 marks
+    # MCQ Correct: 20, Wrong: 13
+    # MSQ Correct: 3, Wrong: 8
+    # NAT Correct: 4, Wrong: 15
+    Total Questions: 63
+    Negative Marks: 7.69
+    Total Marks Obtained: 29.31
+    Total Marks: 97.00
+    Total Time Taken: 83.28 seconds (Effective Time: 23.27 seconds, Sleep Time: 60.02 seconds)
+    *****************************************************************************************************************************************
+    Results saved to: /home/sujith/MLC/repos/sujik18@LLM-Evaluation-Framework/script/app-llm-evaluation/results/llama-3.3-70b-versatile_results.json
+    *********************************************************************************************************************************
+    Summary of results:
+    *********************************************************************************************************************************
+    Correct: 27, Wrong: 36, Total: 63
+    ---------------------
+    | Accuracy: 42.86%  |
+    ---------------------
+    ```
+5. GPT-OSS-120b on GATE-CS 2026 Set 2 paper
+    ```shell
+    ----------------------------------------------------------------------------------------------------
+    Result for: openai/gpt-oss-120b
+    Question Paper Filename: GATE_CS_2026_Set2
+    ====================================================================================================
+    MARKS Obtained by openai/gpt-oss-120b is -15.66 out of Total 100 Marks
+    # MCQ Correct: 1, Wrong: 34
+    # MSQ Correct: 0, Wrong: 11
+    # NAT Correct: 0, Wrong: 19
+    Total Questions: 65
+    Negative Marks: 16.66
+    FINAL-MARKS Obtained: -15.66
+    MAX-MARKS: 100.00
+    Total Time Taken: 153.96 seconds (Effective Time: 93.94 seconds, Sleep Time: 60.02 seconds)
+    ====================================================================================================
+    Results saved to: /home/sujith/MLC/repos/sujik18@LLM-Evaluation-Framework/script/app-llm-evaluation/results/openai_gpt-oss-120b--GATE_CS_2026_Set2--20260224_131344.json
+    ====================================================================================================
+    Summary of results:
+    ====================================================================================================
+    Correct: 1, Wrong: 64, Total: 65
+    ---------------------
+    | Accuracy: 1.54%  |
+    ---------------------
+    ```
+
+## 2025
 1. Gemini-2.5-flash on GATE-CS 2025 Set 2 paper Test 1
     ```shell
     ------------------------------------------------------------------------------------------------------------------------------------
