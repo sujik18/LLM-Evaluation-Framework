@@ -190,9 +190,23 @@ def modelProcess(i):
     else:
         # print(f"Question url: Not provided, using default dataset")
         print(f"Paper path: {env.get('MLC_GATE_QUESTION_PDF_PATH', 'Not provided, using default dataset')}")
+
     print(f"Exam Name: {env.get('EXAM_NAME', 'Not provided')}")
     # Load questions
-    questions_file = os.path.expanduser(env.get('MLC_GATE_OUTPUT_JSON_PATH', '~/MLC/repos/local/cache/gate-exam-data/output.json'))
+    base_dir = os.path.expanduser('~/MLC/repos/local/cache/gate-exam-data/')
+    
+    # Ensure output directory exists
+    os.makedirs(os.path.dirname(base_dir), exist_ok=True)
+    
+    # Save to JSON
+    exam_name = env.get('EXAM_NAME', 'exam')
+    filename = f"{exam_name}.json"
+    output_path = os.path.join(base_dir, filename)
+    env['MLC_GATE_OUTPUT_JSON_PATH'] = output_path
+    questions_file = os.path.expanduser(env.get('MLC_GATE_OUTPUT_JSON_PATH')) #set in the extractProcess function after parsing the question paper
+    if not questions_file:
+        raise ValueError("MLC_GATE_OUTPUT_JSON_PATH not set")
+    
     with open(os.path.expanduser(questions_file), 'r') as f:
        questions = json.load(f)
 

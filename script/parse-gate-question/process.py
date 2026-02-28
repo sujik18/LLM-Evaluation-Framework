@@ -252,7 +252,7 @@ def outputProcess(i):
     
     questions = state['questions']
     exam_name = env.get('EXAM_NAME', 'exam')
-    base_dir = os.path.expanduser(env.get('MLC_GATE_OUTPUT_JSON_PATH', '~/MLC/repos/local/cache/gate-exam-data/'))
+    base_dir = os.path.expanduser('~/MLC/repos/local/cache/gate-exam-data/')
     
     # Ensure output directory exists
     os.makedirs(os.path.dirname(base_dir), exist_ok=True)
@@ -262,7 +262,8 @@ def outputProcess(i):
     output_path = os.path.join(base_dir, filename)
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(questions, f, indent=2, ensure_ascii=False)
-    
+
+    env['MLC_GATE_OUTPUT_JSON_PATH'] = output_path
     print("*"*100)
     print(f"Using {output_path} with {len(questions)} questions.")
     print("*"*100)
