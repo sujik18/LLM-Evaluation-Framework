@@ -67,57 +67,107 @@ graph LR
 ```
 ## Results
 ### GATE CS 2026
-1. GPT 5.2 on GATE-CS 2026 Set 1 paper
+1. Gemini 2.5-Flash on GATE-CS 2026 Set 1 paper 
+    ```shell
+    ====================================================================================================
+    Result for: gemini-2.5-flash
+    Question Paper Filename: GATE_CS2026_SET_1
+    ====================================================================================================
+    MARKS Obtained by gemini-2.5-flash is 81.32 out of Total 100 Marks
+    # MCQ Correct: 22, Wrong: 6
+    # MSQ Correct: 22, Wrong: 2
+    # NAT Correct: 12, Wrong: 1
+    Total Questions: 65
+    Negative Marks: 3.68
+    FINAL-MARKS Obtained: 81.32
+    MAX-MARKS: 100.00
+    Total Time Taken: 1022.64 seconds (Effective Time: 1022.64 seconds, Sleep Time: 0.00 seconds)
+    ====================================================================================================
+    Results saved to: /home/sujith/MLC/repos/sujik18@LLM-Evaluation-Framework/script/app-llm-evaluation/results/gemini-2.5-flash--GATE_CS2026_SET_1--20260303_074902.json
+    ====================================================================================================
+    Summary of results:
+    ====================================================================================================
+    Correct: 56, Wrong: 9, Total: 65
+    ---------------------
+    | Accuracy: 86.15%  |
+    ---------------------
+    ```
+2. Gemini 2.5-Flash on GATE-CS 2026 Set 2 paper 
+    ```shell
+    ====================================================================================================
+    Result for: gemini-2.5-flash
+    Question Paper Filename: GATE_CS2026_SET_2
+    ====================================================================================================
+    MARKS Obtained by gemini-2.5-flash is 68.32 out of Total 100 Marks
+    # MCQ Correct: 27, Wrong: 8
+    # MSQ Correct: 7, Wrong: 4
+    # NAT Correct: 16, Wrong: 3
+    Total Questions: 65
+    Negative Marks: 4.68
+    FINAL-MARKS Obtained: 68.32
+    MAX-MARKS: 100.00
+    Total Time Taken: 1063.84 seconds (Effective Time: 1063.83 seconds, Sleep Time: 0.00 seconds)
+    ====================================================================================================
+    Results saved to: /home/sujith/MLC/repos/sujik18@LLM-Evaluation-Framework/script/app-llm-evaluation/results/gemini-2.5-flash--GATE_CS2026_SET_2--20260303_072609.json
+    ====================================================================================================
+    Summary of results:
+    ====================================================================================================
+    Correct: 50, Wrong: 15, Total: 65
+    ---------------------
+    | Accuracy: 76.92%  |
+    ---------------------
+    ```
+3. GPT 5.2 on GATE-CS 2026 Set 1 paper
     ```shell
     ====================================================================================================
     Result for: gpt-5.2
     Question Paper Filename: GATE_CS2026_SET_1
     ====================================================================================================
-    MARKS Obtained by gpt-5.2 is 52.33 out of Total 100 Marks
-    # MCQ Correct: 19, Wrong: 9
+    MARKS Obtained by gpt-5.2 is 61.33 out of Total 100 Marks
+    # MCQ Correct: 23, Wrong: 5
     # MSQ Correct: 16, Wrong: 8
     # NAT Correct: 4, Wrong: 9
     Total Questions: 65
-    Negative Marks: 4.67
-    FINAL-MARKS Obtained: 52.33
+    Negative Marks: 2.67
+    FINAL-MARKS Obtained: 61.33
     MAX-MARKS: 100.00
-    Total Time Taken: 73.26 seconds (Effective Time: 73.26 seconds, Sleep Time: 0.00 seconds)
+    Total Time Taken: 79.20 seconds (Effective Time: 79.20 seconds, Sleep Time: 0.00 seconds)
     ====================================================================================================
-    Results saved to: /home/sujith/MLC/repos/sujik18@LLM-Evaluation-Framework/script/app-llm-evaluation/results/gpt-5.2--GATE_CS2026_SET_1--20260225_224429.json
+    Results saved to: /home/sujith/MLC/repos/sujik18@LLM-Evaluation-Framework/script/app-llm-evaluation/results/gpt-5.2--GATE_CS2026_SET_1--20260303_075839.json
     ====================================================================================================
     Summary of results:
     ====================================================================================================
-    Correct: 39, Wrong: 26, Total: 65
+    Correct: 43, Wrong: 22, Total: 65
     ---------------------
-    | Accuracy: 60.00%  |
+    | Accuracy: 66.15%  |
     ---------------------
     ```
-2. GPT 5.2 on GATE-CS 2026 Set 2 paper
+4. GPT 5.2 on GATE-CS 2026 Set 2 paper
     ```shell
     ====================================================================================================
     Result for: gpt-5.2
     Question Paper Filename: GATE_CS2026_SET_2
     ====================================================================================================
-    MARKS Obtained by gpt-5.2 is 31.32 out of Total 100 Marks
-    # MCQ Correct: 19, Wrong: 16
-    # MSQ Correct: 4, Wrong: 7
-    # NAT Correct: 6, Wrong: 13
+    MARKS Obtained by gpt-5.2 is 36.99 out of Total 100 Marks
+    # MCQ Correct: 20, Wrong: 15
+    # MSQ Correct: 5, Wrong: 6
+    # NAT Correct: 7, Wrong: 12
     Total Questions: 65
-    Negative Marks: 8.68
-    FINAL-MARKS Obtained: 31.32
+    Negative Marks: 8.01
+    FINAL-MARKS Obtained: 36.99
     MAX-MARKS: 100.00
-    Total Time Taken: 75.98 seconds (Effective Time: 75.98 seconds, Sleep Time: 0.00 seconds)
+    Total Time Taken: 76.79 seconds (Effective Time: 76.79 seconds, Sleep Time: 0.00 seconds)
     ====================================================================================================
-    Results saved to: /home/sujith/MLC/repos/sujik18@LLM-Evaluation-Framework/script/app-llm-evaluation/results/gpt-5.2--GATE_CS2026_SET_2--20260225_224753.json
+    Results saved to: /home/sujith/MLC/repos/sujik18@LLM-Evaluation-Framework/script/app-llm-evaluation/results/gpt-5.2--GATE_CS2026_SET_2--20260303_080440.json
     ====================================================================================================
     Summary of results:
     ====================================================================================================
-    Correct: 29, Wrong: 36, Total: 65
+    Correct: 32, Wrong: 33, Total: 65
     ---------------------
-    | Accuracy: 44.62%  |
+    | Accuracy: 49.23%  |
     ---------------------
     ```
-3. llama-3.3-70b-versatile on GATE-CS 2026 Set 1 paper
+5. llama-3.3-70b-versatile on GATE-CS 2026 Set 1 paper
     ```shell
     ----------------------------------------------------------------------------------------------------
     Result for: llama-3.3-70b-versatile
@@ -142,7 +192,7 @@ graph LR
     | Accuracy: 40.00%  |
     ---------------------
     ```
-4. llama-3.3-70b-versatile on GATE-CS 2026 Set 2 paper
+6. llama-3.3-70b-versatile on GATE-CS 2026 Set 2 paper
     ```shell
     ------------------------------------------------------------------------------------------------------------------------------------
     Result for: llama-3.3-70b-versatile
@@ -167,7 +217,7 @@ graph LR
     | Accuracy: 42.86%  |
     ---------------------
     ```
-5. GPT-OSS-120b on GATE-CS 2026 Set 2 paper
+7. GPT-OSS-120b on GATE-CS 2026 Set 2 paper
     ```shell
     ----------------------------------------------------------------------------------------------------
     Result for: openai/gpt-oss-120b
@@ -190,6 +240,31 @@ graph LR
     Correct: 1, Wrong: 64, Total: 65
     ---------------------
     | Accuracy: 1.54%  |
+    ---------------------
+    ```
+8. GPT-4.1-mini on GATE-CS 2026 Set 2 paper
+    ```shell
+    ====================================================================================================
+    Result for: gpt-4.1-mini
+    Question Paper Filename: GATE_CS2026_SET_2
+    ====================================================================================================
+    MARKS Obtained by gpt-4.1-mini is 40.99 out of Total 100 Marks
+    # MCQ Correct: 22, Wrong: 13
+    # MSQ Correct: 4, Wrong: 7
+    # NAT Correct: 8, Wrong: 11
+    Total Questions: 65
+    Negative Marks: 7.01
+    FINAL-MARKS Obtained: 40.99
+    MAX-MARKS: 100.00
+    Total Time Taken: 49.59 seconds (Effective Time: 49.59 seconds, Sleep Time: 0.00 seconds)
+    ====================================================================================================
+    Results saved to: /home/sujith/MLC/repos/sujik18@LLM-Evaluation-Framework/script/app-llm-evaluation/results/gpt-4.1-mini--GATE_CS2026_SET_2--20260303_081930.json
+    ====================================================================================================
+    Summary of results:
+    ====================================================================================================
+    Correct: 34, Wrong: 31, Total: 65
+    ---------------------
+    | Accuracy: 52.31%  |
     ---------------------
     ```
 
@@ -461,11 +536,20 @@ This single command will:
 3. **Run** the selected LLM (Gemini, GPT-4o, or Groq LLaMA/Qwen) on the dataset  
 4. **Generate** a detailed JSON output with model responses and evaluation metrics  
 
-Output is saved at:
+JSON Output is saved at:
 ```
-~/MLC/repos/local/cache/gate-exam-data/output.json
+~/MLC/repos/local/cache/gate-exam-data/
 ```
-
+---
+#### Sample Run Command to skip download and to evaluate locally on a downloaded paper
+```bash
+mlcr llm-evaluation,gate \
+--env.MLC_GATE_QUESTION_PDF_PATH=/home/sujith/MLC/repos/local/cache/gate-exam-data/2026-CSS1-paper.pdf \
+--env.MLC_GATE_ANSWER_PDF_PATH=/home/sujith/MLC/repos/local/cache/gate-exam-data/2026-CSS1-key.pdf \
+--env.MLC_MODEL_TYPE='gemini' \
+--env.MLC_GEMINI_MODEL='gemini-2.5-flash' \
+--env.EXAM_NAME='GATE_CS2026_SET_1'
+```
 ---
 
 #### Example Output
