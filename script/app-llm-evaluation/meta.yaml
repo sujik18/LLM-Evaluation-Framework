@@ -13,8 +13,8 @@ deps:
   - _matplotlib
   tags: get,generic-python-lib,_matplotlib,
 - names:
-  - _google-generativeai
-  tags: get,generic-python-lib,_google-generativeai
+  - _google-genai
+  tags: get,generic-python-lib,_google-genai
 - names:
   - _openai
   tags: get,generic-python-lib,_openai
@@ -51,7 +51,7 @@ variations:
   gemini:
     deps:
     - tags: get,tags,parse-gate-question
-    - tags: get,generic-python-lib,_package.google.generativeai
+    - tags: get,generic-python-lib,_package.google.genai
     env:
       MLC_MODEL_TYPE: gemini
   GEMINI_API_KEY.#:

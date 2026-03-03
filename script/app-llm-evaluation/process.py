@@ -22,17 +22,19 @@ def get_model_info(model_type):
 def initialize_model(model_type):
     # Initialize the appropriate model based on type
     if model_type == "gemini":
-        import google.generativeai as genai
-
-        api_key = os.environ.get('GEMINI_API_KEY')
+        from google import genai
+        api_key = os.environ.get("GEMINI_API_KEY")
         if not api_key:
-            raise RuntimeError("GEMINI_API_KEY not set in environment or .env file!")
-        
-        genai.configure(api_key=api_key)
+            raise RuntimeError("GEMINI_API_KEY not set!")
 
-        model_name = os.environ.get('MLC_GEMINI_MODEL', 'models/gemini-2.5-flash')
+        client = genai.Client(api_key=api_key)
 
-        return genai.GenerativeModel(model_name)
+        model_name = os.environ.get(
+            "MLC_GEMINI_MODEL",
+            "gemini-2.5-flash"
+        )
+
+        return client, model_name
     
     elif model_type == "openai":
         from openai import OpenAI
@@ -108,7 +110,13 @@ def ask_model(question, options_dict, model_type, model_instance, q_type):
     
 
     if model_type == "gemini":
-        response = model_instance.generate_content(prompt)
+        client, model_name = model_instance
+
+        response = client.models.generate_content(
+            model=model_name,
+            contents=prompt,
+        )
+
         answer = response.text.strip().upper()
 
     elif model_type == "openai":
@@ -148,9 +156,9 @@ def ask_model(question, options_dict, model_type, model_instance, q_type):
 def get_rate_limits(model_type):
     if model_type == "gemini":
         if(os.environ.get('MLC_GEMINI_MODEL') == 'models/gemini-2.5-pro'):
-            return {"batch_size":3, "batch_sleep": 60}
+            return {"batch_size":3, "batch_sleep": 80}
         else:
-            return {"batch_size": 10, "batch_sleep": 60}
+            return {"batch_size": 65, "batch_sleep": 0}
         
     elif model_type == "openai":
         return {"batch_size": 65, "batch_sleep": 0}
@@ -178,7 +186,7 @@ def modelProcess(i):
     model_type = env.get('MLC_MODEL_TYPE', 'groq').lower()
     
     # Initialize the appropriate model
-    model_instance = initialize_model(model_type)
+    model_instance = initialize_model(model_type) # for gemini it returns (client, model_name) tuple, for others it returns the model instance directly
     model_name = get_model_info(model_type)
     rate_limits = get_rate_limits(model_type)
     
