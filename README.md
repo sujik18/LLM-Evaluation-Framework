@@ -5,20 +5,6 @@
 [![Zenodo Views](https://img.shields.io/badge/dynamic/json?url=https://zenodo.org/api/records/18646148&query=$.stats.views&label=Views)](https://zenodo.org/record/18646148)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## Citation
-
-If you use this framework, please cite:
-
-```bibtex
-@misc{kanakkassery2026llmgate,
-  author    = {Kanakkassery, Sujith},
-  title     = {Reproducible Automated Pipeline for Evaluating LLMs on Standardized Exam Questions},
-  year      = {2026},
-  publisher = {Zenodo},
-  doi       = {10.5281/zenodo.18646148}
-}
-```
-
 ## Overview
 An open-source evaluation pipeline designed to benchmark Large Language Models (LLMs) on standardized examination-style questions. The framework automates the end-to-end process: parsing examination PDFs, structuring content into a standardized JSON format, executing inference across various models, and calculating scores based on complex marking schemes. Critically, the pipeline moves beyond labor-intensive screenshot-based methods by employing a structured text-parsing architecture to ensure data integrity and evaluation precision.
 > This work emphasizes on reproducibility, automation, and structured evaluation over ad-hoc prompt-based benchmarking.
@@ -567,3 +553,14 @@ mlcr llm-evaluation,gate \
 
 ## Demo  
 Try it live on [Hugging Face](https://huggingface.co/spaces/sujithh/llm-evaluation)
+
+## Citation
+```bibtex
+@misc{kanakkassery2026llmgate,
+  author    = {Kanakkassery, Sujith},
+  title     = {Reproducible Automated Pipeline for Evaluating LLMs on Standardized Exam Questions},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.18646148}
+}
+```
